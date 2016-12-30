@@ -1,0 +1,95 @@
+/*Reset CSS*/
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+}
+img{
+	border: 1px solid black;
+}
+li{
+	border: 1px solid black;
+}
+ul{
+	border: 1px solid black;
+}
+div{
+	border: 1px solid black;
+}
+body{
+	font-family: Arial;
+	cursor: pointer;
+}
+section a{
+	color: blue;
+	text-decoration: none;
+}
+section li{
+	list-style: none;
+	margin-top: 10px;
+	margin-left: 40px;
+}
+/*Contains style*/
+#contains{
+	width: 98%;
+	height: auto;
+	margin: auto;
+	padding: 10px;
+}
+
+/*Định dạng folder chung*/
+ul.folder{
+	margin-top: 10px;
+}	
+
+/*Style nhãn folder*/
+/*Nút view/hidden folder*/
+div.folder-title img{
+	width: 40px;
+	vertical-align: middle;
+}
+div.folder-title img[alt="icon view/hidden folder"]{
+	width: 18px;
+	opacity: 0.3;
+}
+div.folder-title img[alt="icon view/hidden folder"]:hover{
+	opacity: 1;
+}
+
+/*Định dạng file*/
+li.file{
+	margin-left: 60px;
+}
+li.file a{
+	vertical-align: middle;
+}
+li.file img{
+	vertical-align: middle;
+	width: 30px;
+}
+
+.xoaborder{
+	border: 0px solid white;
+}
+
+/*Style nút Add folder*/
+#add-folder{
+	margin-top: 40px;
+	padding: 5px;
+	text-align: center;
+	background: #e0e0e0;
+}
+#add-folder span{
+	font-weight: bold;
+	vertical-align: middle;
+	font-size: 25px;
+}
+#add-folder img{
+	vertical-align: middle;
+	width: 40px;
+}
+#add-folder:hover{
+	background: #a5a5a5;
+}
