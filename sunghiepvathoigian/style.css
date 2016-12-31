@@ -65,17 +65,17 @@ div.folder-title{
 	left: 72px;
 	top: 13px;
 }
-.folder-title span.time img{
+.folder-title span.time canvas#time-view{
 	position: relative;
 	top: 12px;
-	width: 300px;
-	height: 15px;
 }
 .folder-title span.time-number{
 	position: relative;
-	top: 3px;
-	padding: 3px;
-	border: 3px solid #1c75bb;
+	top: 6px;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 1px;
+	border: 2px solid #1c75bb;
 }
 /*Định dạng folder-title-tag*/
 div.folder-title-tag{
@@ -160,10 +160,4 @@ li.file img{
 }
 #add-folder:hover{
 	background: #a5a5a5;
-}
-
-
-#time-view{
-	border: 1px solid black;
-	margin: 50px;
 }
