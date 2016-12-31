@@ -6,18 +6,6 @@
 	  -webkit-box-sizing: border-box;
 	  -moz-box-sizing: border-box;
 }
-img{
-	border: 1px solid black;
-}
-li{
-	border: 1px solid black;
-}
-ul{
-	border: 1px solid black;
-}
-div{
-	border: 1px solid black;
-}
 body{
 	font-family: Arial;
 	cursor: pointer;
@@ -29,7 +17,10 @@ section a{
 section li{
 	list-style: none;
 	margin-top: 10px;
-	margin-left: 40px;
+	border: 1px solid green;
+}
+ul.folder li{
+	margin: 10px 0px 0px 73px;
 }
 /*Contains style*/
 #contains{
@@ -39,25 +30,102 @@ section li{
 	padding: 10px;
 }
 
-/*Định dạng folder chung*/
-ul.folder{
-	margin-top: 10px;
-}	
-
 /*Style nhãn folder*/
-/*Nút view/hidden folder*/
-div.folder-title img{
-	width: 40px;
-	vertical-align: middle;
+div.folder-title{
+	position: relative;
+	height: 45px;
 }
-div.folder-title img[alt="icon view/hidden folder"]{
+.folder-title img.folder-icon{
+	position: absolute;
+	top: 3px;
+	width: 45px;
+	left: 22px;
+}
+.folder-title span.folder-name{
+	position: absolute;
+	left: 72px;
+	top: 5px;
+}
+.folder-title img.iconvieworhidden{
+	/*Nút view/hidden folder*/
+	position: absolute;
+	top: 11px;
+	left: 0px;
 	width: 18px;
 	opacity: 0.3;
 }
-div.folder-title img[alt="icon view/hidden folder"]:hover{
+.folder-title img.iconvieworhidden:hover{
 	opacity: 1;
 }
 
+/*Time- hiển thị thời gian*/
+.folder-title span.time{
+	position: absolute;
+	height: 30px;
+	left: 72px;
+	top: 13px;
+}
+.folder-title span.time img{
+	position: relative;
+	top: 12px;
+	width: 300px;
+	height: 15px;
+}
+.folder-title span.time-number{
+	position: relative;
+	top: 3px;
+	padding: 3px;
+	border: 3px solid #1c75bb;
+}
+/*Định dạng folder-title-tag*/
+div.folder-title-tag{
+	border: 2px solid #e0e0e0;
+	width: 500px;
+	height: auto;
+	padding: 10px;
+	margin-left: 73px;
+}
+
+div.folder-title-tag hr{
+	margin: 10px 0px;
+}
+div.folder-title-tag .label{
+	display: inline-block;
+	border: 2px solid #ffaaaa;
+	padding: 3px;
+}
+div.folder-title-tag .label:hover{
+	border: 2px solid red;
+}
+div.lienquan  .lienquan_tag{
+	display: inline-block;
+	margin: 5px 5px 0px 5px;
+}
+div.lienquan  .lienquan_tag span{
+	font-style: italic;
+	color:  #0000ff;
+}
+div.lienquan img, div.ghichu img{
+	/*Nút xóa item ghi chú, liên quan tag*/
+	width: 13px;
+	opacity: 0.2;
+	vertical-align: middle;
+}
+div.lienquan img:hover, div.ghichu img:hover{
+	opacity: 1;
+}
+div.ghichu-item{
+	margin: 10px 0px 0px 10px;
+}
+div.ghichu-item p.ghichu-content{
+	max-width: 430px;
+	display: inline-block;
+	vertical-align: middle;
+	border: 1px solid #ff1c89;
+	border-radius: 10px;
+	padding: 5px;
+	background: #ffdbec;
+}
 /*Định dạng file*/
 li.file{
 	margin-left: 60px;
@@ -65,13 +133,13 @@ li.file{
 li.file a{
 	vertical-align: middle;
 }
+li.file a:hover{
+	color: red;
+	font-weight: bold;
+}
 li.file img{
 	vertical-align: middle;
 	width: 30px;
-}
-
-.xoaborder{
-	border: 0px solid white;
 }
 
 /*Style nút Add folder*/

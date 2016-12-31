@@ -32,5 +32,5 @@ Tổng hợp chức năng:
     +, Drad and Drop
 */
 $(document).ready(function(){
-    $('ul, li, div, a, img').addClass('xoaborder')
+  //  $('li, a, div, ul, img').addClass('xoaborder')
 });
