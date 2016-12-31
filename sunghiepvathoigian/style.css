@@ -161,3 +161,9 @@ li.file img{
 #add-folder:hover{
 	background: #a5a5a5;
 }
+
+
+#time-view{
+	border: 1px solid black;
+	margin: 50px;
+}
