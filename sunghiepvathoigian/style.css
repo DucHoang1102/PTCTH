@@ -6,7 +6,9 @@
 	  -webkit-box-sizing: border-box;
 	  -moz-box-sizing: border-box;
 }
+ 
 body{
+	position: relative;
 	font-family: Arial;
 	cursor: pointer;
 }
@@ -17,6 +19,8 @@ section a{
 section li{
 	list-style: none;
 	margin-top: 10px;
+}
+section li:hover{
 	border: 1px solid green;
 }
 ul.folder li{
@@ -34,6 +38,10 @@ ul.folder li{
 div.folder-title{
 	position: relative;
 	height: 45px;
+	background: #f4f4f4;
+}
+div.folder-title:hover{
+	background: #ffd6e9;
 }
 .folder-title img.folder-icon{
 	position: absolute;
@@ -65,7 +73,7 @@ div.folder-title{
 	left: 72px;
 	top: 13px;
 }
-.folder-title span.time canvas#time-view{
+.folder-title span.time canvas.time-view{
 	position: relative;
 	top: 12px;
 }
@@ -79,7 +87,7 @@ div.folder-title{
 }
 /*Định dạng folder-title-tag*/
 div.folder-title-tag{
-	border: 2px solid #e0e0e0;
+	border: 2px solid #ffbfdd;
 	width: 500px;
 	height: auto;
 	padding: 10px;
@@ -160,4 +168,32 @@ li.file img{
 }
 #add-folder:hover{
 	background: #a5a5a5;
+}
+
+/*Style mouse-right*/
+#mouse-right{
+	position: absolute;
+	display: none;
+	top: 0px;
+	left: 0px;
+	overflow: hidden;
+	width: 204px;
+}
+#mouse-right div{
+	overflow: hidden;
+	width: 200px;
+	height: 34px;
+	padding: 8px 10px;
+	color: white;
+	margin-bottom: 1px;
+	background: rgba(0,0,0,0.9);
+}
+#mouse-right div:hover{
+	background: rgba(0,0,0,0.7);
+}
+#mouse-right div.mouse-right-label{
+	background: #d1d1d1;
+	font-weight: bold;
+	color: black;
+	border: 1px solid #939393;
 }
