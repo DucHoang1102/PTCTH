@@ -1,0 +1,36 @@
+Tổng hợp chức năng:
+    +, Tham chiếu và tag tham chiếu
+    +, Đặt ghi chú
+    +, Quản lý thời gian
+    +, Ẩn hiện folder
+    +, Delete folder và file
+
+    +, Đặt nhãn cho file
+    +, Drad and Drop (Làm sau)
+    +, Thùng rác, phục hồi (Làm sau)
+    +, Thông báo - lịch sử(Làm sau)
+    +, Tìm kiếm (Làm sau)
+
+Tổng hợp Click chuột:
+
+    Click chuột phải hiện hộp thoại quản lý Time
+    Click CT Liên quan, Ghi chú để thêm tag, note => Thêm kiểu input rồi ấn ok
+    Click CT để xóa tag, note => Lập trình 1 nút xóa
+    Click CT  View/Hident Folder  
+    Click CT nút add folder
+    Click CT bật link file
+
+    Chức năng chuột phải tất cả đều có:
+    Lưu ý hiện tên vùng trên cùng khi bấm chuột phải (this)
+        - Delete
+        - Rename: Hiện tên cũ vào khung đổi, sử dụng focus
+        - Thêm folder (thêm vào vùng click)
+        - Thêm file (thêm vào vùng click)
+        - Tham chiếu tới
+
+Tổng hợp hộp thoại:
+    Hộp thoại tạo tag Liên Quan tham chiếu, danh sách để time chiếu
+    Hộp thoại tạo folder
+    Hộp thoại tạo file
+    Hộp thoại đổi tên folder
+    Hộp thoại đổi tên file, link file

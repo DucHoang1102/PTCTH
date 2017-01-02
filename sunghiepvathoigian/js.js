@@ -1,42 +1,3 @@
-/*
-Tổng hợp chức năng:
-    +, Tham chiếu và tag tham chiếu
-    +, Đặt nhãn
-    +, Đặt ghi chú
-    +, Quản lý thời gian
-    +, Chèn vào trước, chèn vào sau
-    +, Ẩn hiện (+, -)
-    +, Delete
-    +, Hiện tên thư mục khi bấm 
-    chuột phải
-    +, Drad and Drop (Làm sau)
-    +, Thùng rác, phục hồi (Làm sau)
-    +, Thông báo(Làm sau)
-    +, Tìm kiếm (Làm sau)
-
-    Click CT Time tổng, Time đang dùng để cộng time  
-    Click CT Liên quan, Ghi chú để thêm tag, note => Thêm kiểu input rồi ấn ok
-    Click CT để xóa tag, note => Lập trình 1 nút xóa
-    Click CT  View/Hident Folder  
-    Click CT nút add folder
-    Click CT bật link file
-
-    Hộp thoại cài đặt Time: gồm tất cả
-    Hộp thoại tạo tag Liên Quan tham chiếu, danh sách để time chiếu
-    Hộp thoại tạo folder
-    Hộp thoại tạo file
-    Hộp thoại đổi tên folder
-    Hộp thoại đổi tên file, link file
-
-    Chức năng chuột phải tất cả đều có:
-    Lưu ý hiện tên vùng trên cùng khi bấm chuột phải (this)
-        - Delete
-        - Rename
-        - Thêm folder (thêm vào vùng click)
-        - Thêm file (thêm vào vùng click)
-        - Tham chiếu tới
-
-*/
 $(document).ready(function(){
     var time = {
         timeView: function(total_times, times_spent){
@@ -91,4 +52,11 @@ $(document).ready(function(){
         }
         return false;
     })
+
+    $('#clickthu').click(function(){
+        $('<div></div>')
+        .appendTo('body')
+        .css({width: '100%', height: '100%', background: 'rgba(0,0,0,0.4)',
+              position:'fixed', top: '0px', left: '0px'})
+    });
 });

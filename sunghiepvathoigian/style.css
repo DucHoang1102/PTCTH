@@ -6,11 +6,11 @@
 	  -webkit-box-sizing: border-box;
 	  -moz-box-sizing: border-box;
 }
- 
 body{
 	position: relative;
 	font-family: Arial;
 	cursor: pointer;
+	background: #fcfcfc;
 }
 section a{
 	color: blue;
@@ -39,9 +39,6 @@ div.folder-title{
 	position: relative;
 	height: 45px;
 	background: #f4f4f4;
-}
-div.folder-title:hover{
-	background: #ffd6e9;
 }
 .folder-title img.folder-icon{
 	position: absolute;
@@ -135,13 +132,10 @@ div.ghichu-item p.ghichu-content{
 	background: #ffdbec;
 }
 /*Định dạng file*/
-li.file{
-	margin-left: 60px;
-}
 li.file a{
 	vertical-align: middle;
 }
-li.file a:hover{
+li.file:hover a{
 	color: red;
 	font-weight: bold;
 }
@@ -196,4 +190,59 @@ li.file img{
 	font-weight: bold;
 	color: black;
 	border: 1px solid #939393;
+}
+
+/*b-new-or-rename-f
+1, Hộp thọa tạo mới hoặc đổi tên
+folder
+2, Dùng js để thay đổi giữa 2 chức năng*/
+.box-style{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	/*Chỉnh hộp thoại vào giữa trình duyệt 
+	theo mọi kích thước*/
+	transform: translateX(-50%) translateY(-50%);
+	overflow: hidden;
+	border: 1px solid black;
+	width: 350px;
+	height: 150px;
+	text-align: center;
+	background: white;
+}
+.box-style span{
+	display: inline-block;
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	font-size: 18px;
+	color: white;
+	padding-top: 3px;
+	background: black;
+}
+.box-style .input-name{
+	width: 270px;
+	height: 28px;
+	border: 2px solid black;
+	margin: 25px 35px 5px 35px;
+}
+.box-style .style-tao, .box-style .style-huy{
+	position: relative;
+	width: 75px;
+	height: 30px;
+	top: 20px;
+	left: 57px;
+	margin-right: 8px;
+	border-radius: 3px;
+	border: none;
+}
+.box-style .style-tao{
+	background: #4989F2;
+	color: white;
+}
+.box-style .style-tao:hover{
+	background: #377def;
+}
+.box-style .style-huy:hover{
+	border: 1px solid #8e8e8e;
 }
