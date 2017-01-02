@@ -192,25 +192,27 @@ li.file img{
 	border: 1px solid #939393;
 }
 
-/*b-new-or-rename-f
-1, Hộp thọa tạo mới hoặc đổi tên
-folder
-2, Dùng js để thay đổi giữa 2 chức năng*/
+/*Style chung cho khung box và nhãn
+*/
 .box-style{
+	z-index: 10; /*Luôn luôn hiển thị bên trên
+	các lớp khác*/
 	position: fixed;
+	/*Mặc định chỉnh hộp thoại vào giữa trình duyệt 
+	theo mọi kích thước*/
 	left: 50%;
 	top: 50%;
-	/*Chỉnh hộp thoại vào giữa trình duyệt 
-	theo mọi kích thước*/
 	transform: translateX(-50%) translateY(-50%);
 	overflow: hidden;
 	border: 1px solid black;
+	/*width, height,text-align mặc định căn giữa 
+	tất cả thành phần trong hộp thoại*/
 	width: 350px;
-	height: 150px;
+	height: 160px;
 	text-align: center;
 	background: white;
 }
-.box-style span{
+.box-style .label{
 	display: inline-block;
 	width: 100%;
 	height: 30px;
@@ -220,29 +222,88 @@ folder
 	padding-top: 3px;
 	background: black;
 }
-.box-style .input-name{
+
+/*Style khung input text nhập dữ liệu*/
+.input-text{
+	/*width, height, border mặc định*/
 	width: 270px;
 	height: 28px;
+	display: inline-block;
 	border: 2px solid black;
-	margin: 25px 35px 5px 35px;
 }
-.box-style .style-tao, .box-style .style-huy{
-	position: relative;
+
+/*Style nút bấm:
+1, button-style-1
+2, button-style-2
+*/
+.button-style-1, .button-style-2{
 	width: 75px;
 	height: 30px;
-	top: 20px;
-	left: 57px;
-	margin-right: 8px;
 	border-radius: 3px;
 	border: none;
 }
-.box-style .style-tao{
+.button-style-2{
 	background: #4989F2;
 	color: white;
 }
-.box-style .style-tao:hover{
+.button-style-2:hover{
 	background: #377def;
 }
-.box-style .style-huy:hover{
+.button-style-1:hover{
 	border: 1px solid #8e8e8e;
+}
+
+/*Box tạo mới và đổi tên FOLDER*/
+#b-new-rename-folder{
+ 	display: none;
+}
+#b-new-rename-folder .input-text{
+	width: 250px;
+	margin-top: 30px;
+}
+#b-new-rename-folder .time{
+	width: 50px;
+}
+#b-new-rename-folder .button-style-1, #b-new-rename-folder .button-style-2{
+	position: relative;
+	top: 30px;
+	left: 74px;
+}
+
+/*Box tạo mới và đổi tên FILE*/
+#b-new-rename-file{
+	display: none;
+	width: 400px;
+	height: 210px; 
+}
+#b-new-rename-file .input-text{
+	margin-top: 25px;
+}
+
+#b-new-rename-file hr{
+	position: relative;
+	top: 12px;
+	width: 90%;
+	left: 5%;
+	border: 1px solid #ededed;
+}
+#b-new-rename-file .button-style-1, #b-new-rename-file .button-style-2{
+	position: relative;
+	top: 25px;
+	left: 57px;
+}
+
+/*Box quản lý thời gian*/
+#b-time{
+	display: none;
+}
+#b-time .input-text{
+	margin: 30px 0px 0px 10px; 
+	font-size: 18px;
+	width: 70px;
+}
+#b-time .button-style-1, #b-time .button-style-2{
+	position: relative;
+	top: 25px;
+	left: 45px;
 }

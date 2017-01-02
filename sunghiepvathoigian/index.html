@@ -171,17 +171,43 @@
 		<div class="mouse-right-label">Tên folder or file</div><!--Tên folder or file thao tác(this) Nếu dài quá thì ẩn-->
 		<div>Tạo thư mục</div>
 		<div>Tạo file</div>
-		<div>Đổi tên</div><!--or Rename file-->
+		<div>Đổi tên</div>
 		<div>Tham chiếu tới</div>
 		<div>Xóa</div>
 	</div>
+	
+	<!--Nút(button-style-1 và button-style-2) và nhãn chung
+	cho toàn bộ các hộp thoại
+	-->
 
 	<!--Tạo mới folder hoặc đổi tên-->
-	<div id="b-new-or-rename-f" class="box-style">
-		<span>Tạo thư mục mới</span>
-		<input class="input-name" type="text" placeholder="Nhập tên thư mục"><br>
-		<input class="style-huy" type="button" value="Hủy">
-		<input class="style-tao" type="button" value="Tạo">
+	<div id="b-new-rename-folder" class="box-style">
+		<span class="label">Tạo thư mục mới</span>
+		<input class="input-text" type="text" placeholder="Nhập tên thư mục...">
+		<input class="input-text time" type="text" placeholder="Time"><br />
+		<input class="button-style-1" type="button" value="Hủy">
+		<input class="button-style-2" type="button" value="Tạo">
+	</div>
+
+	<!--Tạo mới file hoặc đổi tên file-->
+	<div id="b-new-rename-file" class="box-style">
+		<span class="label">Tạo file mới</span>
+		<input type="text" class="input-text" placeholder="Nhập link url...">
+		<hr />
+		<input type="text" class="input-text" placeholder="Nhập tên file..."><br />
+		<input type="button" class="button-style-1" value="Hủy">
+		<input type="button" class="button-style-2" value="Tạo">
+	</div>
+
+	<!--Hộp thoại quản lý thời gian-->
+	<div id="b-time" class="box-style">
+		<span class="label">Quản lý thời gian</span>
+		<input class="input-text" type="number" placeholder="Tổng">
+		<input class="input-text" type="number" placeholder="Đã dùng">
+		<input class="input-text" type="text" placeholder="Còn lại" disabled>
+		<br />
+		<input class="button-style-1" type="button" value="Hủy">
+		<input class="button-style-2" type="button" value="OK">
 	</div>
 </body>
 </html>

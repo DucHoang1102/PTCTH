@@ -1,3 +1,6 @@
+Master -  phiên bản ổn định để sự dụng
+develope - phiên bản phát triển nếu sử dụng thử ok thì tích hợp vào master
+Tác ở đâu ra thì hợp lại vào đó
 Tổng hợp chức năng:
     +, Tham chiếu và tag tham chiếu
     +, Đặt ghi chú
@@ -29,8 +32,7 @@ Tổng hợp Click chuột:
         - Tham chiếu tới
 
 Tổng hợp hộp thoại:
-    Hộp thoại tạo tag Liên Quan tham chiếu, danh sách để time chiếu
-    Hộp thoại tạo folder
-    Hộp thoại tạo file
-    Hộp thoại đổi tên folder
-    Hộp thoại đổi tên file, link file
+    1, Hộp thoại tạo thư mục đổi tên thư mục
+    2, Hộp thoại tạo file đổi tên file
+    3, Hộp thoại tạo tag Liên Quan tham chiếu, danh sách để time chiếu
+    4, Hộp thoại quản lý time
