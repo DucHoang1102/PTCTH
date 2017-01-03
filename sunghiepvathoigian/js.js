@@ -126,6 +126,28 @@ $(document).ready(function(){
                 return false;
             });
         },
+        mouseDisabled: function(box_mouse_right, element_disabled,
+                                region_disabled, style_disabled){
+            /*this.mouseDisabled() hàm tạo vô hiệu hóa cho các thành phần
+              menu chuột phải (Không thể click)*/
+            /* 
+            1, element_disabled => Thành phần bị disabled trong menu phải. Giá tri
+            Array các thành phần.VD: ['.new-folder', '.new-file']
+            2, region_disabled => Vùng khi click chuột phải vào đó thành phần bị
+            disabled. Giá trị Array các vùng.
+            style_disabled => Style css của thành phần bị disabled. Giá trị 1 class
+            css.
+            */
+            var $box_mouse_right = box_mouse_right;
+            var element_disabled = element_disabled;
+            var region_disabled = region_disabled;
+            var style_disabled = style_disabled;
+
+            for (element of element_disabled){
+                $(element).addClass(style_disabled);
+            }
+
+        },
         click: function($box_mouse_right, region_click){
             // Kích hoạt khi bấm chuột phải
             // id_box_mouse_right => Id hộp thoại chuột phải
@@ -147,8 +169,12 @@ $(document).ready(function(){
                 $this.mouseOff($box_mouse_right);
                 return false;
             });
+            return $this; // CHÚ Ý CÁI NÀY
         },//view
     };//demoMouseRight
+
+    mouseRight.mouseDisabled($('#mouse-right'), ['#mouse-right .new-file', 
+                             '#mouse-right .new-folder'],'','style-disabled');
     mouseRight.click($('#mouse-right'), 'html');
 
 });

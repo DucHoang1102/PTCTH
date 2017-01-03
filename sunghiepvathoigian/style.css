@@ -192,6 +192,13 @@ li.file img{
 	color: black;
 	border: 1px solid #939393;
 }
+#mouse-right .style-disabled{
+	background: #dbdbdb;
+	color: #8c8c8c;
+}
+#mouse-right .style-disabled:hover{
+	background: #dbdbdb;
+}
 
 /*Style chung cho khung box và nhãn
 */
