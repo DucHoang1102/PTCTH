@@ -1,4 +1,40 @@
 $(document).ready(function(){
+    var box = {
+        // Quản lý ẩn hiện box
+        // Validate dữ liệu nhập vào box
+        // Trả về dữ liệu đã được validate
+        view: function(box_id, box_label, button1_value, 
+                        button2_value, class_input_text_disabled){
+            // Hiện thị box
+            // Sửa box theo tham số truyền vào
+            // box_id => Id hộp thoại cần hiển thị,
+            // box_label => Nhãn của hộp thoại
+            // button1_value, button2_value => Tên nút bấm tươn ứng
+            // class_input_text_disabled => input cần disabled
+            $('#black-background').show();
+            $(box_id).find('.label').text(box_label);
+            $(box_id).find('.button-style-1').attr({value:button1_value});
+            $(box_id).find('.button-style-2').attr({value:button2_value});
+            $(box_id).find(class_input_text_disabled).attr({disabled:'disabled'});
+            $(box_id).show(100);
+        }
+    }
+
+    $('#mouse-right .new-folder').click(function(){
+        box.view('#b-new-rename-folder', 'Đổi tên', 'Hủy', 'OK', '.time')
+    });
+
+    $('#mouse-right .new-file').click(function(){
+        box.view('#b-new-rename-file')
+    });
+
+
+
+
+
+
+
+
     var time = {
         timeView: function(total_times, times_spent){
             // Vẽ đường biểu diễn time bằng canvas
@@ -43,55 +79,76 @@ $(document).ready(function(){
     time.timeView(100, 50);
 
     var mouseRight = {
-        click: function(){
-            //Click chuột phải hiện ra box menu
-            //Hiện ngay tại vị trí bấm
-            $('html').contextmenu(function(event){
-                var $mouse_right = $('#mouse-right');
-                var width_box = $mouse_right.css('width');
-                var height_box = $mouse_right.css('height');
-                // Cộng thêm 18px padding bao (width:90%)
-                width_box = parseInt(width_box.replace('px',''))+18;
-                height_box = parseInt(height_box.replace('px',''));
+        mousePosition: function(pageX, pageY, box_mouse_right){
+            // Xác định vị trí hộp thoại khi click chuột phải
+            // Fix vị trí chuột
+            // Nhận vào 3 tham số: pageX - top, pageY - left,
+            //box_mouse_right: hộp thoại chuột phải đã xây dựng
+            //từ trước
+            // Trả về 2 giá trị top, left chuẩn đã được fix
+            // 18px cộng thêm là chiều rộng thanh cuộn scroll
+            var left = pageX;
+            var top = pageY;
+            var $box_mouse_right = box_mouse_right;
+            var width_box = parseInt($box_mouse_right.css('width').replace('px',''))+18;
+            var height_box = $box_mouse_right.css('height').replace('px','');
+            var width_browser = window.innerWidth;
+            var height_browser = (window.innerHeight);
 
-                var width_browser = window.innerWidth;
-                var height_browser = window.innerHeight;
-                var left = event.pageX;
-                var top = event.pageY;
-
-                //Fix chuột phải khi click sát bên phải và dưới
-                if((width_browser - left) <= width_box){
-                    left = width_browser - width_box;
-                }
-                if((height_browser - top) <= height_box){
-                    top = top - height_box;
-                }
-
-                // Hiện hộp thoại khi click chuột phải
-                $mouse_right
-                .css({left: left, top: top})
-                .show(100);
-
-                //Bấm chuột trái ra ngoài,
-                //bấm chuột giữa,
-                //bấm chuột phải 
-                //sẽ tắt menu box
-                $('html').mousedown(function(event){
-                    if(event.which == 1){
-                        $mouse_right.hide();
-                    }else if(event.which == 2){
-                        $mouse_right.hide();
-                    }else if(event.which == 3){
-                        $mouse_right.hide();
-                    }
-                });
-                // Cuộn chuột tắt menu box
-                $(window).scroll(function(){
-                    $mouse_right.hide();
-                })
+            //Khi click sát bên phải
+            if((width_browser - left) <= width_box){
+                left = width_browser - width_box;
+            }
+            // Khi click sát xuống dưới
+            if((height_browser - top) <= height_box){
+                top = top - height_box;
+            }
+            return {left: left, top: top};
+        },//mousePosition
+        mouseOff: function(box_mouse_right){
+            // Tắt chuột phải khi:
+            // 1, click chuột trái ra ngoài
+            // 2, Khi click chuột phải
+            // 3, Khi scroll thanh cuộn
+            var $box_mouse_right = box_mouse_right;
+            $('html').click(function(){
+                $box_mouse_right.hide();
                 return false;
             });
-        },//click
-    }
-    mouseRight.click()
+            $('html').mousedown(function(event){
+                if (event.which == 3){
+                    $box_mouse_right.hide();
+                    return false;
+                }
+            });
+            $(window).scroll(function(){
+                $box_mouse_right.hide();
+                return false;
+            });
+        },
+        click: function($box_mouse_right, region_click){
+            // Kích hoạt khi bấm chuột phải
+            // id_box_mouse_right => Id hộp thoại chuột phải
+            // region_click => Vùng click chuột phải: thẻ, #id, .class, window,
+            //...
+            var $box_mouse_right = $box_mouse_right;
+            var $this = this;
+
+            $(region_click).contextmenu(function(event){
+                var position = $this.mousePosition(event.pageX, event.pageY, 
+                                                   $box_mouse_right);
+
+                // Hiện hộp thoại khi click chuột phải
+                $box_mouse_right
+                .css({left: position.left, top: position.top})
+                .show(100);
+
+                //Tắt chuột phải
+                $this.mouseOff($box_mouse_right);
+                return false;
+            });
+        },//view
+    };//demoMouseRight
+    mouseRight.click($('#mouse-right'), 'html');
+
 });
