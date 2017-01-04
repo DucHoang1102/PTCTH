@@ -74,8 +74,8 @@ $(document).ready(function(){
             // Vẽ hình chữ nhật biểu diễn thời gian đã sử dụng
             ctx.fillStyle = "#1c75bb";
             ctx.fillRect(3,3,times_spent_px,10);
-        }
-    }
+        },//timeView
+    }//Time
     time.timeView(100, 50);
 
     var mouseRight = {
@@ -105,6 +105,7 @@ $(document).ready(function(){
             }
             return {left: left, top: top};
         },//mousePosition
+
         mouseOff: function(box_mouse_right){
             // Tắt chuột phải khi:
             // 1, click chuột trái ra ngoài
@@ -126,11 +127,14 @@ $(document).ready(function(){
                 return false;
             });
         },
-        mouseDisabled: function(box_mouse_right, element_disabled,
-                                region_disabled, style_disabled){
+
+        mouseDisabled: function(list_disabled){
             /*this.mouseDisabled() hàm tạo vô hiệu hóa cho các thành phần
               menu chuột phải (Không thể click)*/
             /* 
+            list_disabled = {box_mouse_right:'#abc',element_disabled: [], 
+            region_disabled:[], style_disabled:[]};
+            1, box_mouse_right => Id hộp thoại chuột phải
             1, element_disabled => Thành phần bị disabled trong menu phải. Giá tri
             Array các thành phần.VD: ['.new-folder', '.new-file']
             2, region_disabled => Vùng khi click chuột phải vào đó thành phần bị
@@ -138,43 +142,62 @@ $(document).ready(function(){
             style_disabled => Style css của thành phần bị disabled. Giá trị 1 class
             css.
             */
-            var $box_mouse_right = box_mouse_right;
-            var element_disabled = element_disabled;
-            var region_disabled = region_disabled;
-            var style_disabled = style_disabled;
+            this.flagDisabled = true; // Kích hoạt disabled
+            var $box_mouse_right = list_disabled.box_mouse_right;
+            var element_disabled = list_disabled.element_disabled;
+            var region_disabled = list_disabled.region_disabled;
+            var style_disabled = list_disabled.style_disabled;
 
-            for (element of element_disabled){
-                $(element).addClass(style_disabled);
-            }
-
+            for (region of region_disabled){
+                this.click($box_mouse_right,region, true, element_disabled,
+                           style_disabled);
+            }; 
         },
-        click: function($box_mouse_right, region_click){
+
+        click: function(box_mouse_right, region_click, flag_disabled, 
+                        element_disabled,style_disabled){
             // Kích hoạt khi bấm chuột phải
             // id_box_mouse_right => Id hộp thoại chuột phải
             // region_click => Vùng click chuột phải: thẻ, #id, .class, window,
             //...
-            var $box_mouse_right = $box_mouse_right;
+            // style_disabled => Chỉ dùng cho trường hợp disabled thành phần
+            var $box_mouse_right = box_mouse_right;
             var $this = this;
-
-            $(region_click).contextmenu(function(event){
+            
+            function mouseRightClick(event){
+                // Hàm này được kích hoạt khi bấm chuột phải
                 var position = $this.mousePosition(event.pageX, event.pageY, 
                                                    $box_mouse_right);
 
                 // Hiện hộp thoại khi click chuột phải
-                $box_mouse_right
+                box_mouse_right
                 .css({left: position.left, top: position.top})
                 .show(100);
 
                 //Tắt chuột phải
-                $this.mouseOff($box_mouse_right);
+                $this.mouseOff(box_mouse_right);
                 return false;
+            }
+
+            $(region_click).contextmenu(function(event){
+                if(flag_disabled == true){
+                    for(var element of element_disabled){
+                        $(element).addClass(style_disabled);
+                    };
+                }
+                // Bắt sự kiện chuột phải
+                return mouseRightClick(event);
             });
             return $this; // CHÚ Ý CÁI NÀY
         },//view
     };//demoMouseRight
 
-    mouseRight.mouseDisabled($('#mouse-right'), ['#mouse-right .new-file', 
-                             '#mouse-right .new-folder'],'','style-disabled');
-    mouseRight.click($('#mouse-right'), 'html');
-
+    mouseRight
+    .click($('#mouse-right'), 'html')
+    .mouseDisabled({
+        box_mouse_right: ['#mouse-right'],
+        element_disabled: ['#mouse-right .new-file', '#mouse-right .new-folder'],
+        region_disabled: ['li .file'],
+        style_disabled: 'style-disabled'
+    });
 });
