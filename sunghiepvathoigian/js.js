@@ -142,51 +142,45 @@ $(document).ready(function(){
             style_disabled => Style css của thành phần bị disabled. Giá trị 1 class
             css.
             */
-            this.flagDisabled = true; // Kích hoạt disabled
-            var $box_mouse_right = list_disabled.box_mouse_right;
+            var mouse_right = list_disabled.box_mouse_right;
             var element_disabled = list_disabled.element_disabled;
             var region_disabled = list_disabled.region_disabled;
             var style_disabled = list_disabled.style_disabled;
 
             for (region of region_disabled){
-                this.click($box_mouse_right,region, true, element_disabled,
+                this.click(mouse_right, region, true, element_disabled,
                            style_disabled);
             }; 
         },
 
-        click: function(box_mouse_right, region_click, flag_disabled, 
-                        element_disabled,style_disabled){
+        click: function($box_mouse_right, region_click, flag_disabled, 
+                        element_disabled, style_disabled){
             // Kích hoạt khi bấm chuột phải
             // id_box_mouse_right => Id hộp thoại chuột phải
             // region_click => Vùng click chuột phải: thẻ, #id, .class, window,
             //...
-            // style_disabled => Chỉ dùng cho trường hợp disabled thành phần
-            var $box_mouse_right = box_mouse_right;
+            var $box_mouse_right = $box_mouse_right;
             var $this = this;
-            
-            function mouseRightClick(event){
-                // Hàm này được kích hoạt khi bấm chuột phải
+
+            $(region_click).contextmenu(function(event){
                 var position = $this.mousePosition(event.pageX, event.pageY, 
                                                    $box_mouse_right);
 
+                if(flag_disabled == true){
+                    // Thay đổi css
+                    for(element of element_disabled){
+                        $(element).addClass(style_disabled);
+                    }
+                };
+
                 // Hiện hộp thoại khi click chuột phải
-                box_mouse_right
+                $box_mouse_right
                 .css({left: position.left, top: position.top})
                 .show(100);
 
                 //Tắt chuột phải
-                $this.mouseOff(box_mouse_right);
+                $this.mouseOff($box_mouse_right);
                 return false;
-            }
-
-            $(region_click).contextmenu(function(event){
-                if(flag_disabled == true){
-                    for(var element of element_disabled){
-                        $(element).addClass(style_disabled);
-                    };
-                }
-                // Bắt sự kiện chuột phải
-                return mouseRightClick(event);
             });
             return $this; // CHÚ Ý CÁI NÀY
         },//view
@@ -195,7 +189,7 @@ $(document).ready(function(){
     mouseRight
     .click($('#mouse-right'), 'html')
     .mouseDisabled({
-        box_mouse_right: ['#mouse-right'],
+        box_mouse_right: $('#mouse-right'),
         element_disabled: ['#mouse-right .new-file', '#mouse-right .new-folder'],
         region_disabled: ['li .file'],
         style_disabled: 'style-disabled'
