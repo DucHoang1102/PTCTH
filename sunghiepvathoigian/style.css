@@ -200,6 +200,14 @@ li.file img{
 	background: #dbdbdb;
 }
 
+#mouse-right .style-disabled-2{
+	background: red;
+	color: #8c8c8c;
+}
+#mouse-right .style-disabled-2:hover{
+	background: green;
+}
+
 /*Style chung cho khung box và nhãn
 */
 .box-style{
