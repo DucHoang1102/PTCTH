@@ -3,31 +3,60 @@ $(document).ready(function(){
         // Quản lý ẩn hiện box
         // Validate dữ liệu nhập vào box
         // Trả về dữ liệu đã được validate
-        view: function(box_id, box_label, button1_value, 
-                        button2_value, class_input_text_disabled){
-            // Hiện thị box
-            // Sửa box theo tham số truyền vào
-            // box_id => Id hộp thoại cần hiển thị,
-            // box_label => Nhãn của hộp thoại
-            // button1_value, button2_value => Tên nút bấm tươn ứng
-            // class_input_text_disabled => input cần disabled
+        view: function(element_list_box){
+            // 1, Hiện thị box
+            // 2, Sửa box theo tham số truyền vào
+            // 3, Tham số element_list_box => Đối tượng chứa các tham số
+            // 4, element_list_box = {box_id:'', box_label: '', button1_value: '',
+            // button2_value: '', class_input_text_disabled: ''}
+            // 5, box_id => Id hộp thoại cần hiển thị,
+            // 6, box_label => Nhãn của hộp thoại
+            // 7, button1_value, button2_value => Tên nút bấm tươn ứng
+            // 8, input_disabled => input cần disabled
+            var box_id = element_list_box.box_id;
+            var box_label = element_list_box.box_label;
+            var button1_value = element_list_box.button1_value;
+            var button2_value = element_list_box.button2_value;
+            var input_disabled = element_list_box.input_disabled;
             $('#black-background').show();
             $(box_id).find('.label').text(box_label);
             $(box_id).find('.button-style-1').attr({value:button1_value});
             $(box_id).find('.button-style-2').attr({value:button2_value});
-            $(box_id).find(class_input_text_disabled).attr({disabled:'disabled'});
+            $(box_id).find(input_disabled).attr({disabled:'disabled'});
             $(box_id).show(100);
-        }
-    }
+        },//view
+
+        offBox: function(){
+            // Nút tắt hộp thoại chung cho tất cả box
+            $('input.button-style-1').click(function(){
+                var box = $(this).parent();
+                $(box).hide(100);
+                $('#black-background').hide();
+            });
+        },//offBox
+    };//box
 
     $('#mouse-right .new-folder').click(function(){
-        box.view('#b-new-rename-folder', 'Đổi tên', 'Hủy', 'OK', '.time')
+        box.view({box_id: '#b-new-rename-folder', 
+                  box_label: 'Tạo thư mục', 
+                  button1_value:'Hủy', 
+                  button2_value: 'Tạo mới'});
+    });
+
+    $('#mouse-right .rename').click(function(){
+        box.view({box_id: '#b-new-rename-folder', 
+                  box_label: 'Đổi tên', 
+                  button1_value: 'Hủy', 
+                  button2_value: 'OK', 
+                  input_disabled: '.time'});
     });
 
     $('#mouse-right .new-file').click(function(){
-        box.view('#b-new-rename-file')
+        box.view({box_id: '#b-new-rename-file'});
     });
 
+    //Kích hoạt nút tắt hộp thoại chung
+    box.offBox();
 
 
     var time = {
