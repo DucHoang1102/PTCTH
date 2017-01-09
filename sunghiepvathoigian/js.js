@@ -4,7 +4,6 @@ $(document).ready(function(){
         // Quản lý Các nút trong box
         show: function(box_id){
             // 1, Hiện thị box
-
             $('#black-background').show();
             $(box_id).show(100);
         },//show
@@ -39,7 +38,6 @@ $(document).ready(function(){
         },//clickOkBox
 
         view: function(){
-            var $this_mouse_right = mouseRight.$this_mouse_right;
             // Click tạo folder
             $('#mouse-right .new-folder').click(function(){
                 box.show('#b-new-folder');
@@ -50,9 +48,19 @@ $(document).ready(function(){
                 box.show('#b-new-file');
             });
 
-            // Click đổi tên folder
+            // Click đổi tên folder or file(chung nút rename)
             $('#mouse-right .rename').click(function(){
-                box.show('#b-rename-file');
+                // Xác định chuột phải click vào đâu để hiện box rename 
+                // cho phù hợp
+                var $this = $(mouseRight.$this_mouse_right);
+                if($this.attr('class') == 'file'|| 
+                   $this.parent().attr('class') == 'file')
+                {
+                    box.show('#b-rename-file');
+                }
+                else{
+                    box.show('#b-rename-folder');
+                }
             });
 
             //Click nút Hủy
@@ -234,7 +242,7 @@ $(document).ready(function(){
                 $this.mouseOff($box_mouse_right);
 
                 //Lưu this click - element
-                $this.this_mouse_right = event.target;
+                $this.$this_mouse_right = event.target;
 
                 return false;
             });
