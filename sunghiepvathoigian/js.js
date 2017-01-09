@@ -162,7 +162,15 @@ $(document).ready(function(){
                 return false;
             });
         },
-
+        none: function(element){
+            // Tắt chuột phải trong thành phần được chọn
+            // element => Thành phần vô hiệu chuột phải
+            $this = this;
+            $(element).contextmenu(function(){
+                return false;
+            });
+            return $this;
+        },
         mouseDisabled: function(list_disabled){
             /*this.mouseDisabled() hàm tạo vô hiệu hóa cho các thành phần
               menu chuột phải (Không thể click)*/
@@ -284,7 +292,8 @@ $(document).ready(function(){
         element_disabled: ['#mouse-right .new-file', '#mouse-right .new-folder'],
         region_disabled: ['li .file'],
         style_disabled: 'style-disabled'
-    });
+    })
+    .none('.folder-title span.time');
 
     box.view();
 

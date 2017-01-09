@@ -64,6 +64,7 @@ div.folder-title{
 }
 
 /*Time- hiển thị thời gian*/
+
 .folder-title span.time{
 	position: absolute;
 	height: 30px;
