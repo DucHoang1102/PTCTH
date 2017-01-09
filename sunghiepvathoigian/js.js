@@ -1,31 +1,13 @@
 $(document).ready(function(){
     var box = {
         // Quản lý ẩn hiện box
-        // Validate dữ liệu nhập vào box
-        // Trả về dữ liệu đã được validate
-        // Các nút trong box
-        create: function(element_list_box){
+        // Quản lý Các nút trong box
+        show: function(box_id){
             // 1, Hiện thị box
-            // 2, Sửa box theo tham số truyền vào
-            // 3, Tham số element_list_box => Đối tượng chứa các tham số
-            // 4, element_list_box = {box_id:'', box_label: '', button1_value: '',
-            // button2_value: '', class_input_text_disabled: ''}
-            // 5, box_id => Id hộp thoại cần hiển thị,
-            // 6, box_label => Nhãn của hộp thoại
-            // 7, button1_value, button2_value => Tên nút bấm tươn ứng
-            // 8, input_disabled => input cần disabled
-            var box_id = element_list_box.box_id;
-            var box_label = element_list_box.box_label;
-            var button1_value = element_list_box.button1_value;
-            var button2_value = element_list_box.button2_value;
-            var input_disabled = element_list_box.input_disabled;
+
             $('#black-background').show();
-            $(box_id).find('.label').text(box_label);
-            $(box_id).find('.button-style-1').attr({value:button1_value});
-            $(box_id).find('.button-style-2').attr({value:button2_value});
-            $(box_id).find(input_disabled).attr({disabled:'disabled'});
             $(box_id).show(100);
-        },//create
+        },//show
 
         offBox: function(this_button){
             // Hàm tắt hộp thoại
@@ -60,32 +42,17 @@ $(document).ready(function(){
             var $this_mouse_right = mouseRight.$this_mouse_right;
             // Click tạo folder
             $('#mouse-right .new-folder').click(function(){
-                box.create({box_id: '#b-new-rename-folder', 
-                          box_label: 'Tạo thư mục', 
-                          button1_value:'Hủy', 
-                          button2_value: 'Tạo mới'});
+                box.show('#b-new-folder');
             });
 
             // Click tạo file
             $('#mouse-right .new-file').click(function(){
-                box.create({box_id: '#b-new-rename-file'});
+                box.show('#b-new-file');
             });
 
             // Click đổi tên folder
             $('#mouse-right .rename').click(function(){
-                alert($this_mouse_right)
-                box.create({box_id: '#b-new-rename-folder', 
-                          box_label: 'Đổi tên', 
-                          button1_value: 'Hủy', 
-                          button2_value: 'OK', 
-                          input_disabled: '.time'});
-            });
-
-            // Click đổi tên file
-            $('').click(function(){
-                box.create({box_id: '#b-new-rename-file',
-                            box_label: 'Đổi tên',
-                            button2_value: 'Ok'});
+                box.show('#b-rename-file');
             });
 
             //Click nút Hủy

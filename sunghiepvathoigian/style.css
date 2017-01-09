@@ -270,40 +270,42 @@ li.file img{
 }
 
 /*Box tạo mới và đổi tên FOLDER*/
-#b-new-rename-folder{
- 	display: none;
+#b-new-folder, #b-rename-folder{
+	display: none;
 }
-#b-new-rename-folder .input-text{
+#b-new-folder .input-text, #b-rename-folder .input-text{
 	width: 250px;
 	margin-top: 30px;
 }
-#b-new-rename-folder .time{
+#b-new-folder .time, #b-rename-folder .time{
 	width: 50px;
 }
-#b-new-rename-folder .button-style-1, #b-new-rename-folder .button-style-2{
+#b-new-folder .button-style-1, #b-new-folder .button-style-2,
+#b-rename-folder .button-style-1, #b-rename-folder .button-style-2{
 	position: relative;
 	top: 30px;
 	left: 74px;
 }
 
 /*Box tạo mới và đổi tên FILE*/
-#b-new-rename-file{
+#b-new-file, #b-rename-file{
 	display: none;
 	width: 400px;
 	height: 210px; 
 }
-#b-new-rename-file .input-text{
+#b-new-file .input-text, #b-rename-file .input-text{
 	margin-top: 25px;
 }
 
-#b-new-rename-file hr{
+#b-new-file hr, #b-rename-file hr{
 	position: relative;
 	top: 12px;
 	width: 90%;
 	left: 5%;
 	border: 1px solid #ededed;
 }
-#b-new-rename-file .button-style-1, #b-new-rename-file .button-style-2{
+#b-new-file .button-style-1, #b-new-file .button-style-2,
+#b-rename-file .button-style-1, #b-rename-file .button-style-2{
 	position: relative;
 	top: 25px;
 	left: 57px;
