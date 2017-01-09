@@ -3,7 +3,8 @@ $(document).ready(function(){
         // Quản lý ẩn hiện box
         // Validate dữ liệu nhập vào box
         // Trả về dữ liệu đã được validate
-        view: function(element_list_box){
+        // Các nút trong box
+        create: function(element_list_box){
             // 1, Hiện thị box
             // 2, Sửa box theo tham số truyền vào
             // 3, Tham số element_list_box => Đối tượng chứa các tham số
@@ -24,40 +25,76 @@ $(document).ready(function(){
             $(box_id).find('.button-style-2').attr({value:button2_value});
             $(box_id).find(input_disabled).attr({disabled:'disabled'});
             $(box_id).show(100);
-        },//view
+        },//create
 
-        offBox: function(){
-            // Nút tắt hộp thoại chung cho tất cả box
-            $('input.button-style-1').click(function(){
-                var box = $(this).parent();
-                $(box).hide(100);
-                $('#black-background').hide();
-            });
+        offBox: function(this_button){
+            // Hàm tắt hộp thoại
+            // Tham số this là nút click;
+            var box = $(this_button).parent();
+            $(box).hide(100);
+            $('#black-background').hide();
         },//offBox
+
+        clickOff: function(){
+            // Nút Hủy tắt hộp thoại chung cho các box
+            // Chú ý 2 this khác nhau, this click và this object
+            var $this = this;
+            $('input.button-style-1').click(function(){
+                $this.offBox(this);
+            });
+        },//clickOff
+
+        clickOkBox: function(){
+            var $this = this;
+            $('input.button-style-2').click(function(){
+                var input_name = $('#b-new-rename-folder .input-text').val();
+                var input_time = $('#b-new-rename-folder .time').val();
+                folder.folderCreate(input_name);
+
+                //Tắt hộp thoại mỗi lần set xong một item
+                $this.offBox(this);
+            });
+        },//clickOkBox
+
+        view: function(){
+            var $this_mouse_right = mouseRight.$this_mouse_right;
+            // Click tạo folder
+            $('#mouse-right .new-folder').click(function(){
+                box.create({box_id: '#b-new-rename-folder', 
+                          box_label: 'Tạo thư mục', 
+                          button1_value:'Hủy', 
+                          button2_value: 'Tạo mới'});
+            });
+
+            // Click tạo file
+            $('#mouse-right .new-file').click(function(){
+                box.create({box_id: '#b-new-rename-file'});
+            });
+
+            // Click đổi tên folder
+            $('#mouse-right .rename').click(function(){
+                alert($this_mouse_right)
+                box.create({box_id: '#b-new-rename-folder', 
+                          box_label: 'Đổi tên', 
+                          button1_value: 'Hủy', 
+                          button2_value: 'OK', 
+                          input_disabled: '.time'});
+            });
+
+            // Click đổi tên file
+            $('').click(function(){
+                box.create({box_id: '#b-new-rename-file',
+                            box_label: 'Đổi tên',
+                            button2_value: 'Ok'});
+            });
+
+            //Click nút Hủy
+            box.clickOff();
+
+            // Click nút ok
+            box.clickOkBox();
+        },
     };//box
-
-    $('#mouse-right .new-folder').click(function(){
-        box.view({box_id: '#b-new-rename-folder', 
-                  box_label: 'Tạo thư mục', 
-                  button1_value:'Hủy', 
-                  button2_value: 'Tạo mới'});
-    });
-
-    $('#mouse-right .rename').click(function(){
-        box.view({box_id: '#b-new-rename-folder', 
-                  box_label: 'Đổi tên', 
-                  button1_value: 'Hủy', 
-                  button2_value: 'OK', 
-                  input_disabled: '.time'});
-    });
-
-    $('#mouse-right .new-file').click(function(){
-        box.view({box_id: '#b-new-rename-file'});
-    });
-
-    //Kích hoạt nút tắt hộp thoại chung
-    box.offBox();
-
 
     var time = {
         timeView: function(total_times, times_spent){
@@ -100,7 +137,6 @@ $(document).ready(function(){
             ctx.fillRect(3,3,times_spent_px,10);
         },//timeView
     }//Time
-    time.timeView(100, 50);
 
     var mouseRight = {
         mousePosition: function(pageX, pageY, box_mouse_right){
@@ -181,6 +217,8 @@ $(document).ready(function(){
         // Lưu element coppy để xóa 
         list_element_disabled: [],
 
+        $this_mouse_right: '',// Trả về this click chuột phải
+
         click: function($box_mouse_right, region_click, flag_disabled, 
                         element_disabled, style_disabled){
             // Kích hoạt khi bấm chuột phải
@@ -228,11 +266,41 @@ $(document).ready(function(){
                 //Tắt chuột phải
                 $this.mouseOff($box_mouse_right);
 
+                //Lưu this click - element
+                $this.this_mouse_right = event.target;
+
                 return false;
             });
             return $this; // CHÚ Ý CÁI NÀY
         },//view
-    };//demoMouseRight
+    };//MouseRight
+
+    var totalFunction = {
+        create: {
+            folder: function(folder_name){
+                // Tạo mới folder
+                var folder_item = `
+                    <li>
+                        <ul class="folder">
+                            <div class="folder-title">
+                                <img class="iconvieworhidden" src="images/subtraction.png" alt="icon view/hidden folder"/>
+                                <img class="folder-icon" src="images/folder-close.png" alt="img-folder"/>
+                                <span class="folder-name">${folder_name}</span>
+                            </div>
+                        </ul>
+                    </li>
+                `;
+                 $('wrap').append(folder_item)
+
+            },
+            file: function(){
+                // Tạo mới file
+            },
+        },//create
+        rename: {
+
+        },//rename
+    };// totalFunction
 
     mouseRight
     .click($('#mouse-right'), 'html')
@@ -242,4 +310,8 @@ $(document).ready(function(){
         region_disabled: ['li .file'],
         style_disabled: 'style-disabled'
     });
+
+    box.view();
+
+    time.timeView(100, 50);
 });

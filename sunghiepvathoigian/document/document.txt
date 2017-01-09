@@ -7,6 +7,7 @@ Tổng hợp chức năng:
     +, Quản lý thời gian
     +, Ẩn hiện folder
     +, Delete folder và file
+    +, Tạo folder và file
 
     +, Đặt nhãn cho file
     +, Drad and Drop (Làm sau)
@@ -36,3 +37,35 @@ Tổng hợp hộp thoại:
     2, Hộp thoại tạo file đổi tên file
     3, Hộp thoại tạo tag Liên Quan tham chiếu, danh sách để time chiếu
     4, Hộp thoại quản lý time
+
+- Cấu trúc trương trình:
+
+1, box{} - Tất cả mọi thứ liên quan đến box
+    + create()
+    + offBox()
+    + clickOf() - Nút Hủy
+    + clickOkBox() - Nút Ok
+    + view()
+
+2, time{}
+    + timeView()
+
+3, folderTag{}
+
+4, totalFunction{}
+    + create{}
+        + folder
+        + file
+    + rename{}
+        + folder
+        + file
+    + Tham chiếu{}
+    + Xóa{}
+
+6, mouseRight{}
+    + mousePosition()
+    + mouseOff()
+    + mouseDisabled()
+    + list_element_disabled
+    + $this_mouse_right
+    + click()
