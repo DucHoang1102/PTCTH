@@ -378,19 +378,30 @@ $(document).ready(function(){
         },//rename
 
         showHideFolder: function(){
-            $('#wrap').on('click',".folder-title .iconvieworhidden",function(){
-                // Ẩn hiện folder khi click icon
-                var icon_showHideFolder = $(this);
-                var elementShowHide = $(this).parent().parent().children('li'); 
-
-                if(icon_showHideFolder.attr('src') == 'images/subtraction.png'){
+            function hideShowFolder($folder){
+                //$folder => This folder cần thao tác
+                var icon_showHide = $folder.children(':eq(0)')
+                                           .find('.iconvieworhidden');
+                var elementShowHide = $folder.children('li');
+                if(icon_showHide.attr('src') == 'images/subtraction.png'){
                     elementShowHide.hide(200);
-                    icon_showHideFolder.attr('src', 'images/addition.png')
+                    icon_showHide.attr('src', 'images/addition.png');
                 }else{
                     elementShowHide.show(200);
-                    icon_showHideFolder.attr('src', 'images/subtraction.png')
+                    icon_showHide.attr('src', 'images/subtraction.png');
                 }
+                return false;
+            };
 
+            $('#wrap').on('click',".folder-title .iconvieworhidden",function(){
+                // Ẩn hiện folder khi click icon
+                var $folder = $(this).parent().parent();
+                return hideShowFolder($folder);
+            });
+            $('#wrap').on('click',".folder .folder-title",function(){
+                // Ẩn hiện folder khi click thanh folder-title
+                var $folder = $(this).parent();
+                return hideShowFolder($folder);
             });
         },//showHideFolder
 
