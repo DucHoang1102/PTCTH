@@ -235,7 +235,7 @@ $(document).ready(function(){
             // Tắt chuột phải trong thành phần được chọn
             // element => Thành phần vô hiệu chuột phải
             $this = this;
-            $(element).on('contextmenu', function(){
+            $('html').on('contextmenu', element, function(){
                 return false;
             });
             return $this;
@@ -283,7 +283,7 @@ $(document).ready(function(){
             var $box_mouse_right = $box_mouse_right;
             var $this = this;
 
-            $(region_click).on('contextmenu', function(event){
+            $('html').on('contextmenu', region_click,function(event){
 
                 for(let element of $this.list_element_disabled){
                     $(element).remove();
@@ -398,7 +398,7 @@ $(document).ready(function(){
             $('#mouse-right .delete').click(function(){
                 var result = confirm('Bạn có thực sự muốn xóa?');
                 if(result == true){
-                    alert('đã xóa')
+                    
                 };
             });
         },//deleteFolderFile
@@ -414,7 +414,7 @@ $(document).ready(function(){
     };// totalFunction
 
     mouseRight
-    .click($('#mouse-right'), 'html')
+    .click($('#mouse-right'), 'body')
     .mouseDisabled({
         box_mouse_right: $('#mouse-right'),
         element_disabled: ['#mouse-right .new-file', '#mouse-right .new-folder'],
