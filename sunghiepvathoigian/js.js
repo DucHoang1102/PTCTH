@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var box = {
         // Quản lý ẩn hiện box
-        // Quản lý Các nút trong box
+        // Quản lý Các nút trong box: Hủy, OK or Tạo mới
         show: function(box_id){
             // 1, Hiện thị box
             $('#black-background').show();
