@@ -240,91 +240,66 @@ $(document).ready(function(){
             });
             return $this;
         },
-        mouseDisabled: function(list_disabled){
-            /*this.mouseDisabled() hàm tạo vô hiệu hóa cho các thành phần
-              menu chuột phải (Không thể click)*/
-            /* 
-            list_disabled = {box_mouse_right:'#abc',element_disabled: [], 
-            region_disabled:[], style_disabled:[]};
-            1, box_mouse_right => Id hộp thoại chuột phải
-            1, element_disabled => Thành phần bị disabled trong menu phải. Giá tri
-            Array các thành phần.VD: ['.new-folder', '.new-file']
-            2, region_disabled => Vùng khi click chuột phải vào đó thành phần bị
-            disabled. Giá trị Array các vùng.
-            style_disabled => Style css của thành phần bị disabled. Giá trị 1 class
-            css.
-            */
-            var mouse_right = list_disabled.box_mouse_right;
-            var element_disabled = list_disabled.element_disabled;
-            var region_disabled = list_disabled.region_disabled;
-            var style_disabled = list_disabled.style_disabled;
-
-            for (let region of region_disabled){
-                this.click(mouse_right, region, true, element_disabled,
-                           style_disabled);
-            };
-            return this; 
-        },
-
         // Lưu element coppy để xóa 
         list_element_disabled: [],
 
         $this_mouse_right: '',// Trả về this click chuột phải
 
-        click: function($box_mouse_right, region_click, flag_disabled, 
-                        element_disabled, style_disabled){
-            // Kích hoạt khi bấm chuột phải
-            // id_box_mouse_right => Id hộp thoại chuột phải
-            // region_click => Vùng click chuột phải: thẻ, #id, .class, window,
-            // flag_disabled => Xác định có disabled hay không
-            // element_disabled => Thẻ (item menu) bị disabled
-            // style_disabled => Định dạng Css disabled
-            //...
-            var $box_mouse_right = $box_mouse_right;
+        click: function(arg_list){
+            /*  MO
+            */
+            var $box_mouse_right = arg_list.$box_mouse_right;
+            var region_click_list = arg_list.region_click_list;
+            var disabled_flag = arg_list.disabled_flag;
+            var disabled_element_list = arg_list.disabled_element_list;
+            var disabled_style = arg_list.disabled_style; 
             var $this = this;
 
-            $('html').on('contextmenu', region_click,function(event){
+            for(region of region_click_list){
+                $('html').on('contextmenu', region,function(event){
 
-                for(let element of $this.list_element_disabled){
-                    $(element).remove();
-                };
-                $box_mouse_right.children().show();
-
-                if(flag_disabled == true){
-                    // Disable bằng cách coppy một element mới thay thế
-                    // element bị disabled. Bấm ra ngoài thì xóa, bấm
-                    // vào lại tạo
-                    for(let element of element_disabled){
-                        let element_new = $(element).clone();
-                        $(element).hide();
-                        $(element_new).addClass(style_disabled);
-                        $(element_new).insertAfter(element);
-                        $this.list_element_disabled.push(element_new);
-                        $(element_new).click(function(){
-                            return false;
-                        });
+                    for(let element of $this.list_element_disabled){
+                        // Xóa mặc định thẻ disable(thẻ đè lên thẻ thường)
+                        $(element).remove();
                     };
-                };
+                    $box_mouse_right.children().show();
 
-                // Trả về object vị trí của hộp thoại {}
-                var position = $this.mousePosition(event.pageX, event.pageY, 
-                                                   $box_mouse_right);
+                    if(disabled_flag == true){
+                        // Disable bằng cách coppy một element mới thay thế
+                        // element bị disabled. Bấm ra ngoài thì xóa, bấm
+                        // vào lại tạo
+                        for(let element of disabled_element_list){
+                            let element_new = $(element).clone();
+                            $(element).hide();
+                            $(element_new).addClass(disabled_style);
+                            $(element_new).insertAfter(element);
+                            $this.list_element_disabled.push(element_new);
+                            $(element_new).click(function(){
+                                return false;
+                            });
+                        };
+                    };
 
-                // Hiện hộp thoại khi click chuột phải
-                $box_mouse_right
-                .css({left: position.left, top: position.top})
-                .show(100);
+                    // Trả về object vị trí của hộp thoại {}
+                    var position = $this.mousePosition(event.pageX, event.pageY, 
+                                                       $box_mouse_right);
 
-                //Tắt chuột phải
-                $this.mouseOff($box_mouse_right);
+                    // Hiện hộp thoại khi click chuột phải
+                    $box_mouse_right
+                    .css({left: position.left, top: position.top})
+                    .show(100);
 
-                //Lưu this click - element
-                $this.$this_mouse_right = event.target;
+                    //Tắt chuột phải
+                    $this.mouseOff($box_mouse_right);
 
-                return false;
-            });
+                    //Lưu this click - element
+                    $this.$this_mouse_right = event.target;
+
+                    return false;
+                });
+            };
             return $this; // CHÚ Ý CÁI NÀY
-        },//view
+        },//click
     };//mouseRight
 
     var totalFunction = {
@@ -399,7 +374,7 @@ $(document).ready(function(){
                 return hideShowFolder($folder);
             });
             $('#wrap').on('click',".folder .folder-title",function(){
-                // Ẩn hiện folder khi click thanh folder-title
+                // Ẩn hiện folder khi click thanh folder-tittle
                 var $folder = $(this).parent();
                 return hideShowFolder($folder);
             });
@@ -425,17 +400,21 @@ $(document).ready(function(){
     };// totalFunction
 
     mouseRight
-    .click($('#mouse-right'), 'body')
-    .mouseDisabled({
-        box_mouse_right: $('#mouse-right'),
-        element_disabled: ['#mouse-right .new-file', '#mouse-right .new-folder'],
-        region_disabled: ['li .file'],
-        style_disabled: 'style-disabled'
+    .click({
+        $box_mouse_right: $('#mouse-right'),
+        region_click_list: ['body'],
+    })
+    .click({
+        $box_mouse_right: $('#mouse-right'),
+        region_click_list: ['#wrap .file'],
+        disabled_flag: true,
+        disabled_element_list: ['#mouse-right .new-file', '#mouse-right .new-folder'],
+        disabled_style: 'style-disabled'
     })
     .none('.folder-title span.time')
     .none('div.folder-title-tag');
 
-    time.timeView(100, 50, 'duchoang');// demo se xoa sau
-
     totalFunction.activated();
+
+    time.timeView(100, 50, 'duchoang');// demo se xoa sau
 });
