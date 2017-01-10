@@ -28,9 +28,75 @@ $(document).ready(function(){
         clickOkBox: function(){
             var $this = this;
             $('input.button-style-2').click(function(){
-                var input_name = $('#b-new-rename-folder .input-text').val();
-                var input_time = $('#b-new-rename-folder .time').val();
-                folder.folderCreate(input_name);
+                // Nút OK, Tạo mới chung cho các hộp thoại
+                // Lấy giá trị và gửi về các hàm tương ứng
+                // Hàm tạo folder, tạo file, đổi tên folder
+                // đổi tên file
+                var $this_box_id = $(this).parent().attr('id');
+                var $this_mouse_right = $(mouseRight.$this_mouse_right);
+                //var input_name_file = $('input.name-file').val();
+                //var input_url_file = $('input.url-file').val();
+                
+                function createFolderLocation($this_mouse_right){
+                    /* 
+                    1, Xác định vị trí chứa thư mục dựa vào vị trí click 
+                       chuột phải
+                    2, $this_mouse_right => đối tượng this jquery ở vị trí 
+                       click phải chuột
+                    3, element_wrap => Thành phần bao ngoài được return, 
+                       thư mục sẽ được tạo trong thành phần này. Đây là đối
+                       tượng jquery
+                    */
+                    var $this_mouse_right = $this_mouse_right;
+                    var element_wrap;
+                    if($this_mouse_right.attr('class') == 'folder'){
+                        element_wrap = $this_mouse_right;
+                    }
+                    else if($this_mouse_right.attr('class') == 'folder-title'){
+                        element_wrap = $this_mouse_right.parent();
+                    }
+                    else if($this_mouse_right.attr('class') == 'iconvieworhidden'
+                           || $this_mouse_right.attr('class') == 'folder-icon'
+                           || $this_mouse_right.attr('class') == 'folder-name'){
+                        element_wrap = $this_mouse_right.parent().parent();
+                    }
+                    else{
+                        // Ngoài vùng folder ra thì tạo trong $('#wrap').
+                        element_wrap = $('#wrap');
+                    }
+                    return element_wrap;
+                };
+
+                if($this_box_id == 'b-new-folder'){
+                    let input_name_folder = $('input.name-folder').val();
+                    let input_time = parseInt($('input.time').val());
+
+                    if(isNaN(input_time)){
+                        // validate dữ liệu, bất kì giá trị nào NaN 
+                        // thì gán input_time =0
+                        input_time = 0;
+                    }
+
+                    //Xác định vị trí chứa folder được tạo;
+                    var element_wrap = createFolderLocation($this_mouse_right);
+
+                    // Tạo item folder
+                    totalFunction.create.folder(input_name_folder, input_time,
+                                                element_wrap);
+
+                } 
+
+                else if($this_box_id == 'b-rename-folder'){
+                    alert('b-rename-folder');
+                }
+
+                else if($this_box_id == 'b-new-file'){
+                    alert('b-new-file');
+                }
+
+                else if($this_box_id == 'b-rename-file'){
+                    alert('b-rename-file');
+                }
 
                 //Tắt hộp thoại mỗi lần set xong một item
                 $this.offBox(this);
@@ -72,12 +138,14 @@ $(document).ready(function(){
     };//box
 
     var time = {
-        timeView: function(total_times, times_spent){
+        timeView: function(total_times=0, times_spent=0, id_time_view){
             // Vẽ đường biểu diễn time bằng canvas
             // Đơn vị thời gian sử dụng theo giờ
             // total_times: Tổng số giờ
             // times_spent: Giờ đã dùng
-            var $timeView = $('.time-view'); 
+            // $time => time cụ thể theo id
+            var $time = $('#' + id_time_view);
+            var $timeView = $time.find('.time-view');
             var canvas = $timeView[0];
 
             // convert giờ sang px: 1h = 1/3px <=> 3h = 1px
@@ -92,9 +160,9 @@ $(document).ready(function(){
             var frame_wrap = total_times_px + 6;
 
             // Thay đổi giao diện number time 
-            $('span.time .times-total').text(total_times);
-            $('span.time .times-spent').text(times_spent);
-            $('span.time .times-rest').text(total_times - times_spent);
+            $time.find('.times-total').text(total_times);
+            $time.find('.times-spent').text(times_spent);
+            $time.find('.times-rest').text(total_times - times_spent);
 
             // Vẽ khung bao time
             ctx = canvas.getContext('2d');
@@ -107,6 +175,7 @@ $(document).ready(function(){
             ctx.lineTo(0,16);
             ctx.lineTo(0,0);
             ctx.stroke();
+            
             // Vẽ hình chữ nhật biểu diễn thời gian đã sử dụng
             ctx.fillStyle = "#1c75bb";
             ctx.fillRect(3,3,times_spent_px,10);
@@ -166,7 +235,7 @@ $(document).ready(function(){
             // Tắt chuột phải trong thành phần được chọn
             // element => Thành phần vô hiệu chuột phải
             $this = this;
-            $(element).contextmenu(function(){
+            $(element).on('contextmenu', function(){
                 return false;
             });
             return $this;
@@ -214,7 +283,7 @@ $(document).ready(function(){
             var $box_mouse_right = $box_mouse_right;
             var $this = this;
 
-            $(region_click).contextmenu(function(event){
+            $(region_click).on('contextmenu', function(event){
 
                 for(let element of $this.list_element_disabled){
                     $(element).remove();
@@ -256,12 +325,15 @@ $(document).ready(function(){
             });
             return $this; // CHÚ Ý CÁI NÀY
         },//view
-    };//MouseRight
+    };//mouseRight
 
     var totalFunction = {
         create: {
-            folder: function(folder_name){
-                // Tạo mới folder
+            folder: function(folder_name, time_number, element_wrap){
+                // Tạo mới folder vào trong element_wrap
+                // Random trong khoảng 99,999,999,999,999
+                var id_time_view = Math.floor(Math.random() * 100000000000000);
+                id_time_view = id_time_view.toString()
                 var folder_item = `
                     <li>
                         <ul class="folder">
@@ -269,12 +341,26 @@ $(document).ready(function(){
                                 <img class="iconvieworhidden" src="images/subtraction.png" alt="icon view/hidden folder"/>
                                 <img class="folder-icon" src="images/folder-close.png" alt="img-folder"/>
                                 <span class="folder-name">${folder_name}</span>
+                                <span class="time" id="${id_time_view}">
+                                    <canvas class="time-view" height="16px" width="0px"></canvas>
+                                    <span class="time-number times-total"></span>
+                                    <span class="time-number times-spent"></span>
+                                    <span class="time-number times-rest"></span>
+                                </span>
+                            </div>
+                            <div class="folder-title-tag">
+                                <div class="lienquan">
+                                    <span class="label">Liên quan</span>
+                                </div>
+                                <hr>
+                            <div class="ghichu">
+                                <span class="label">Ghi chú</span>
                             </div>
                         </ul>
                     </li>
                 `;
-                 $('wrap').append(folder_item)
-
+                element_wrap.append(folder_item)
+                time.timeView(time_number, 0, id_time_view);
             },
             file: function(){
                 // Tạo mới file
@@ -293,9 +379,10 @@ $(document).ready(function(){
         region_disabled: ['li .file'],
         style_disabled: 'style-disabled'
     })
-    .none('.folder-title span.time');
+    .none('.folder-title span.time')
+    .none('div.folder-title-tag');
 
     box.view();
 
-    time.timeView(100, 50);
+    time.timeView(100, 50, 'duchoang');// demo se xoa sau
 });

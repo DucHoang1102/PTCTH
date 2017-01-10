@@ -21,11 +21,11 @@
 							<img class="iconvieworhidden" src="images/subtraction.png" alt="icon view/hidden folder">
 							<img class="folder-icon" src="images/folder-close.png" alt="img-folder">
 							<span class="folder-name">Web Developer</span>
-							<span class="time">
-								<canvas class="time-view" height="16px" width="1210px"></canvas>
-								<span class="time-number times-total">500</span>
-								<span class="time-number times-spent">100</span>
-								<span class="time-number times-rest">400</span>
+							<span class="time" id="duchoang">
+								<canvas class="time-view" height="16px" width="0px"></canvas>
+								<span class="time-number times-total"></span>
+								<span class="time-number times-spent"></span>
+								<span class="time-number times-rest"></span>
 							</span>
 						</div>
 						<div class="folder-title-tag">
@@ -182,8 +182,8 @@
 	<!--Box tạo mới folder-->
 	<div id="b-new-folder" class="box-style">
 		<span class="label">Tạo thư mục mới</span>
-		<input class="input-text" type="text" placeholder="Nhập tên thư mục...">
-		<input class="input-text time" type="text" placeholder="Time"><br />
+		<input type="text" class="input-text name-folder" placeholder="Nhập tên thư mục...">
+		<input type="number" class="input-text time" placeholder="Time"><br />
 		<input class="button-style-1" type="button" value="Hủy">
 		<input class="button-style-2" type="button" value="Tạo">
 	</div>
@@ -191,8 +191,8 @@
 	<!--Box đổi tên folder-->
 	<div id="b-rename-folder" class="box-style">
 		<span class="label">Đổi tên thư mục</span>
-		<input class="input-text" type="text" placeholder="Nhập tên thư mục...">
-		<input class="input-text time" type="text" placeholder="Time" disabled="disabled"><br />
+		<input type="text" class="input-text name-folder" placeholder="Nhập tên thư mục...">
+		<input type="number" class="input-text time" placeholder="Time" disabled="disabled"><br />
 		<input class="button-style-1" type="button" value="Hủy">
 		<input class="button-style-2" type="button" value="OK">
 	</div>
@@ -200,9 +200,9 @@
 	<!--Tạo mới file-->
 	<div id="b-new-file" class="box-style">
 		<span class="label">Tạo file mới</span>
-		<input type="text" class="input-text" placeholder="Nhập link url...">
+		<input type="text" class="input-text url-file" placeholder="Nhập link url...">
 		<hr />
-		<input type="text" class="input-text" placeholder="Nhập tên file..."><br />
+		<input type="text" class="input-text name-file" placeholder="Nhập tên file..."><br />
 		<input type="button" class="button-style-1" value="Hủy">
 		<input type="button" class="button-style-2" value="Tạo">
 	</div>
