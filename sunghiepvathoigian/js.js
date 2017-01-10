@@ -403,10 +403,17 @@ $(document).ready(function(){
     .click({
         $box_mouse_right: $('#mouse-right'),
         region_click_list: ['body'],
+        disabled_flag: true,
+        disabled_element_list: ['#mouse-right .rename', '#mouse-right .delete'],
+        disabled_style: 'style-disabled'
     })
     .click({
         $box_mouse_right: $('#mouse-right'),
-        region_click_list: ['#wrap .file'],
+        region_click_list: ['#wrap li ul.folder'],
+    })
+    .click({
+        $box_mouse_right: $('#mouse-right'),
+        region_click_list: ['#wrap li.file'],
         disabled_flag: true,
         disabled_element_list: ['#mouse-right .new-file', '#mouse-right .new-folder'],
         disabled_style: 'style-disabled'
