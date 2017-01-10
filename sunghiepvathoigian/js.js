@@ -26,17 +26,12 @@ $(document).ready(function(){
         },//clickOff
 
         clickOkBox: function(){
+            // Nút OK chung cho các hộp thoại
             var $this = this;
             $('input.button-style-2').click(function(){
-                // Nút OK, Tạo mới chung cho các hộp thoại
-                // Lấy giá trị và gửi về các hàm tương ứng
-                // Hàm tạo folder, tạo file, đổi tên folder
-                // đổi tên file
                 var $this_box_id = $(this).parent().attr('id');
                 var $this_mouse_right = $(mouseRight.$this_mouse_right);
-                //var input_name_file = $('input.name-file').val();
-                //var input_url_file = $('input.url-file').val();
-                
+
                 function createFolderLocation($this_mouse_right){
                     /* 
                     1, Xác định vị trí chứa thư mục dựa vào vị trí click 
@@ -76,10 +71,8 @@ $(document).ready(function(){
                         // thì gán input_time =0
                         input_time = 0;
                     }
-
                     //Xác định vị trí chứa folder được tạo;
                     var element_wrap = createFolderLocation($this_mouse_right);
-
                     // Tạo item folder
                     totalFunction.create.folder(input_name_folder, input_time,
                                                 element_wrap);
@@ -91,7 +84,13 @@ $(document).ready(function(){
                 }
 
                 else if($this_box_id == 'b-new-file'){
-                    alert('b-new-file');
+                    let input_name_file = $('input.name-file').val();
+                    let input_url_file = $('input.url-file').val();
+                    //Xác định vị trí chứa file được tạo;
+                    var element_wrap = createFolderLocation($this_mouse_right);
+                    // Tạo item file
+                    totalFunction.create.file(input_name_file, input_url_file,
+                                                element_wrap);
                 }
 
                 else if($this_box_id == 'b-rename-file'){
@@ -100,6 +99,7 @@ $(document).ready(function(){
 
                 //Tắt hộp thoại mỗi lần set xong một item
                 $this.offBox(this);
+                return false;
             });
         },//clickOkBox
 
@@ -129,10 +129,10 @@ $(document).ready(function(){
                 }
             });
 
-            //Click nút Hủy
+            //Click hoạt nút Hủy
             box.clickOff();
 
-            // Click nút ok
+            // Click hoạt nút ok
             box.clickOkBox();
         },
     };//box
@@ -359,16 +359,58 @@ $(document).ready(function(){
                         </ul>
                     </li>
                 `;
-                element_wrap.append(folder_item)
+                element_wrap.append(folder_item);
                 time.timeView(time_number, 0, id_time_view);
             },
-            file: function(){
-                // Tạo mới file
+            file: function(name_file, url_file, element_wrap){
+                // Tạo mới file vào trong element_wrap
+                var file_item = `
+                    <li class="file">
+                        <img src="images/file.png" alt="file">
+                        <a href="${url_file}" target="_blank">${name_file}</a>
+                    </li>
+                `;
+                element_wrap.append(file_item);
             },
         },//create
         rename: {
 
         },//rename
+
+        showHideFolder: function(){
+            $('#wrap').on('click',".folder-title .iconvieworhidden",function(){
+                // Ẩn hiện folder khi click icon
+                var icon_showHideFolder = $(this);
+                var elementShowHide = $(this).parent().parent().children('li'); 
+
+                if(icon_showHideFolder.attr('src') == 'images/subtraction.png'){
+                    elementShowHide.hide(200);
+                    icon_showHideFolder.attr('src', 'images/addition.png')
+                }else{
+                    elementShowHide.show(200);
+                    icon_showHideFolder.attr('src', 'images/subtraction.png')
+                }
+
+            });
+        },//showHideFolder
+
+        deleteFolderFile: function(){
+            $('#mouse-right .delete').click(function(){
+                var result = confirm('Bạn có thực sự muốn xóa?');
+                if(result == true){
+                    alert('đã xóa')
+                };
+            });
+        },//deleteFolderFile
+
+        activated: function(){
+            // Kích hoạt hiện thị hộp thoại
+            box.view();
+            //Kích hoạt chức năng ẩn hiện folder
+            totalFunction.showHideFolder();
+            // Kích hoạt chức năng xóa folder hoặc file
+            totalFunction.deleteFolderFile();
+        },
     };// totalFunction
 
     mouseRight
@@ -382,7 +424,7 @@ $(document).ready(function(){
     .none('.folder-title span.time')
     .none('div.folder-title-tag');
 
-    box.view();
-
     time.timeView(100, 50, 'duchoang');// demo se xoa sau
+
+    totalFunction.activated();
 });

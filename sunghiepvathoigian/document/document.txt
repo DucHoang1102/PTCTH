@@ -41,7 +41,7 @@ Tổng hợp hộp thoại:
 - Cấu trúc trương trình:
 
 1, box{} - Tất cả mọi thứ liên quan đến box
-    + create()
+    + show()
     + offBox()
     + clickOf() - Nút Hủy
     + clickOkBox() - Nút Ok
@@ -50,22 +50,30 @@ Tổng hợp hộp thoại:
 2, time{}
     + timeView()
 
-3, folderTag{}
-
-4, totalFunction{}
+3, totalFunction{}
     + create{}
         + folder
         + file
     + rename{}
         + folder
         + file
+    + showHideFolder{}
+    + Delete{}
     + Tham chiếu{}
-    + Xóa{}
+    + Activated{}
 
-6, mouseRight{}
+4, mouseRight{}
     + mousePosition()
     + mouseOff()
+    + none()
     + mouseDisabled()
     + list_element_disabled
     + $this_mouse_right
     + click()
+
+
+- Hàm xác định vị trí click phải chuột:
+trả về: vị trí this, id, class, parent, child
+
+- Cần làm: 
+Fix lại chuột phải hàm on() thay thế
